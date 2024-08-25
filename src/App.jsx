@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import './App.css'
 
 function App() {
@@ -7,7 +7,20 @@ function App() {
   const [charAllowed, serCharAllowed] = useState(false)
   const [password, setPassword] = useState('')
 
-  
+  const genratePassword = useCallback(() => {
+    let pass = ""
+    let str = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
+
+    if(numAllowed) str += "0123456789"
+    if(charAllowed) str += "!@#$%^&*()_+"
+
+    for(let i=1; i<len; i++){
+      const char = Math.floor(Math.random() * str.length + 1)
+      pass += str.charAt(char)
+    }
+
+    setPassword(pass)
+  }, [len, numAllowed, charAllowed])
 
   return (
     <div className='w-full max-w-md mx-auto shadow-md rounded-lg px-4 my-8 bg-gray-800 text-orange-500'>
@@ -33,7 +46,7 @@ function App() {
           className='cursor-pointer'
           onChange={(e) => setLen(e.target.value)}
           name=""
-          id=""
+          id="len"
           />
           <label htmlFor="len">Length: {len}</label>
         </div>
@@ -44,7 +57,7 @@ function App() {
             setNumAllowed((prev) => !prev)
           }}
           name=""
-          id=""
+          id="num"
           />
           <label htmlFor="num">Numbers</label>
         </div>
@@ -55,7 +68,7 @@ function App() {
             setCharAllowed((prev) => !prev)
           }}
           name=""
-          id=""
+          id="char"
           />
           <label htmlFor="char">Characters</label>
         </div>
