@@ -22,6 +22,10 @@ function App() {
     setPassword(pass)
   }, [len, numAllowed, charAllowed])
 
+  const copyPasswordToClipboard = () => {
+    window.navigator.clipboard.writeText(password)
+  }
+
   useEffect(() => {
     genratePassword()
   }, [len, numAllowed, charAllowed])
@@ -38,6 +42,7 @@ function App() {
         readOnly
         />
         <button
+        onClick={copyPasswordToClipboard}
         className='outline-none bg-blue-700 text-white px-3 py-0.5 shrink-0'
         >Copy</button>
       </div>
@@ -74,7 +79,7 @@ function App() {
           name=""
           id="char"
           />
-          <label htmlFor="char">Symbols</label>
+          <label htmlFor="char">Special Symbols</label>
         </div>
       </div>
     </div>
