@@ -1,10 +1,10 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import './App.css'
 
 function App() {
   const [len, setLen] = useState(8)
   const [numAllowed, setNumAllowed] = useState(false)
-  const [charAllowed, serCharAllowed] = useState(false)
+  const [charAllowed, setCharAllowed] = useState(false)
   const [password, setPassword] = useState('')
 
   const genratePassword = useCallback(() => {
@@ -20,6 +20,10 @@ function App() {
     }
 
     setPassword(pass)
+  }, [len, numAllowed, charAllowed])
+
+  useEffect(() => {
+    genratePassword()
   }, [len, numAllowed, charAllowed])
 
   return (
@@ -70,7 +74,7 @@ function App() {
           name=""
           id="char"
           />
-          <label htmlFor="char">Characters</label>
+          <label htmlFor="char">Symbols</label>
         </div>
       </div>
     </div>
